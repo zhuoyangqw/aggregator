@@ -602,4 +602,9 @@ if __name__ == "__main__":
         help="the url to the list of airports that you maintain yourself",
     )
 
-    aggregate(args=parser.parse_args())
+    args  = parser.parse_args()
+
+# Refresh updates the Gist directly, so always build full configs.
+# Without this, clash and singbox export as proxies lists only.
+args.all = args.all or args.refresh
+aggregate(args=args)
