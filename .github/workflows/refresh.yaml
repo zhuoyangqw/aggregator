@@ -52,6 +52,6 @@ jobs:
             exit 1
           fi
       - name: Refresh
-        run: python -u subscribe/collect.py --refresh --overwrite --skip --num 32 --delay 2000
+        run: python -u subscribe/collect.py --refresh --all --overwrite --skip --num 32 --delay 2000
       - name: Timestamp
         run: date
