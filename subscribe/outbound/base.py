@@ -110,9 +110,4 @@ def proxy_exists(proxy: dict[str, object], hosts: dict[str, list[dict[str, objec
     if protocol in ("http", "socks5"):
         return True
 
-    verifier = get_verifier(protocol)
-    if verifier is None:
-        return False
-
-    current = verifier.duplicate_key(proxy)
-    return any(p.get("type") == protocol and verifier.duplicate_key(p) == current for p in existing)
+    return any(utils.trim(str(p.get("type", ""))).lower() == protocol for p in existing)  # same endpoint + protocol is one node
