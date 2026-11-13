@@ -193,6 +193,9 @@ def assign(
 
 
 def aggregate(args: argparse.Namespace) -> None:
+    # Refresh updates the Gist directly, so always build full configs.
+    # Without this, clash and singbox export as proxies lists only.
+    args.all = args.all or args.refresh
     def parse_gist_link(link: str) -> tuple[str, str]:
         # 提取 gist 用户名及 id
         words = utils.trim(link).split("/", maxsplit=1)
@@ -602,9 +605,5 @@ if __name__ == "__main__":
         help="the url to the list of airports that you maintain yourself",
     )
 
-    args  = parser.parse_args()
-
-# Refresh updates the Gist directly, so always build full configs.
-# Without this, clash and singbox export as proxies lists only.
-args.all = args.all or args.refresh
-aggregate(args=args)
+    aggregate(args=parser.parse_args())
+    
